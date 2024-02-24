@@ -86,7 +86,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchSettings(View v){
+        Log.d("fileSavedTo", getFilesDir() + "/" + DATA_PET_CAT);
+        //System.out.println("launchSettings");
         Intent i = new Intent(this, SettingsActivity.class);
+        //Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
         startActivity(i);
     }
 
