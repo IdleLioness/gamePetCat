@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.maid_redheadie_2_min};
     private List<String> listOfPhrases = Arrays.asList("Purr-fect", "Claw-ver move", "Purr-ty", "Paw-some");
     ThreadButtonCombo threadButtonCombo = null;
+    private Thread autosaveThread = null;
+    private static final long AUTOSAVE_INTERVAL_MS = 2 * 1000; // Autosave interval: 2 seconds
+    private boolean autosaveEnabled = true;
+
     private int clickCounter = 0;
     private int imgIDmaid = 0;
 
@@ -47,6 +51,24 @@ public class MainActivity extends AppCompatActivity {
         }
         TextView tvPhrase = findViewById(R.id.textView_CatPhrases);
         tvPhrase.setText("Fur Real? How long should I wait?");
+
+        if (autosaveThread == null){
+            autosaveThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (autosaveEnabled) {
+                        try {
+                            // Autosave logic
+                            saveData();
+                            Thread.sleep(AUTOSAVE_INTERVAL_MS);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+            autosaveThread.start();
+        }
     }
 
     public void buttonClicked (View v){
@@ -122,6 +144,44 @@ public class MainActivity extends AppCompatActivity {
             //pop-up windows
             Toast.makeText(this, "Saved to " + getFilesDir() + "/" + DATA_PET_CAT, Toast.LENGTH_LONG).show();
             Log.d("fileSavedTo", getFilesDir() + "/" + DATA_PET_CAT);
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void saveData() {
+        //input data into text
+        String text = Integer.toString(clickCounter);
+        FileOutputStream fos = null;
+
+        try {
+            fos = openFileOutput(DATA_PET_CAT, MODE_PRIVATE);
+            //pass the text in bytes
+            fos.write(text.getBytes());
+
+            //pop-up windows
+            final String filePath = getFilesDir() + "/" + DATA_PET_CAT;
+            Log.d("fileSavedTo", filePath);
+            /*
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //pop-up windows
+                    Toast.makeText(getApplicationContext(), "Saved to " + filePath, Toast.LENGTH_LONG).show();
+                    Log.d("fileSavedTo", filePath);
+                }
+            });*/
+
         } catch (FileNotFoundException e){
             e.printStackTrace();
         } catch (IOException e){

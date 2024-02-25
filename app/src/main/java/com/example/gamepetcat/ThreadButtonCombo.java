@@ -34,11 +34,11 @@ public class ThreadButtonCombo extends Thread{
         Log.d("comboBreaker", "Combo: " + combo);
         try {
             //thread waits for 1.5 sec
-            for (int i = 0; i < 30; i++){
+            for (int i = 0; i < 150; i++){
                 if (shouldExit){
                     break;
                 }
-                Thread.sleep(50);
+                Thread.sleep(10);
             }
             //if thread was not interupted
             if(!shouldExit){
