@@ -10,7 +10,7 @@
         android:id="@+id/textView_Counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="96dp"
         android:text="Pets given: 0"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,11 +39,13 @@
         android:id="@+id/textView_CatPhrases"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:width="256dp"
+        android:layout_marginTop="32dp"
+        android:width="286dp"
         android:height="64dp"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_Counter" />
 
@@ -74,14 +76,41 @@
         android:id="@+id/imageButtonMaid"
         android:layout_width="286dp"
         android:layout_height="498dp"
+        android:layout_marginTop="32dp"
         android:background="@null"
+        android:contentDescription="Images of cute maids"
         android:onClick="buttonClicked"
         android:scaleType="fitCenter"
-        android:contentDescription="Images of cute maids"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_CatPhrases"
+        app:layout_constraintTop_toTopOf="@+id/textView_CatPhrases"
         app:srcCompat="@drawable/maid_blondie_1_min" />
+
+    <ImageButton
+        android:id="@+id/imageButtonRight"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/round_button"
+        android:contentDescription="Changes list of maids"
+        android:onClick="nextMaidRightArrow"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/arrow_right"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButtonMaid"
+        app:layout_constraintEnd_toEndOf="@+id/imageButtonMaid" />
+
+    <ImageButton
+        android:id="@+id/imageButtonLeft"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/round_button"
+        android:contentDescription="Changes list of maids"
+        android:onClick="nextMaidLeftArrow"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/arrow_left"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButtonMaid"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonMaid" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
