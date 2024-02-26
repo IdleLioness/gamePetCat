@@ -71,6 +71,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        autosaveEnabled = false;
+        try {
+            autosaveThread.join(); // Wait for the autosave thread to finish
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void buttonClicked (View v){
         clickCounter++;
         TextView tvCombo = findViewById(R.id.textViewCombo);
